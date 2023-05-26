@@ -3,8 +3,7 @@ package com.mycompany.javaeat;
 
 
 public class Direccion {
-    
-    
+     
     private String calle;
     private int numero;
     private int codigoPostal;
@@ -59,6 +58,3 @@ public class Direccion {
     public void setCiudad(String ciudad) {
         this.ciudad = ciudad;
     }
-
-
-}
