@@ -1,17 +1,17 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- */
-
 package com.mycompany.javaeat;
 
-/**
- *
- * @author elis8
- */
-public class JavaEat {
+import javax.swing.JFrame;
+import javax.swing.SwingUtilities;
 
+public class JavaEat {
     public static void main(String[] args) {
-        System.out.println("Hello World!");
+        SwingUtilities.invokeLater(() -> {
+            JFrame frame = new JFrame("JavaEat");
+            frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+                        
+            frame.pack();
+            frame.setLocationRelativeTo(null); 
+            frame.setVisible(true);
+        });
     }
 }
- 
