@@ -1,0 +1,44 @@
+
+package com.mycompany.javaeat;
+
+import java.util.ArrayList;
+import java.util.List;
+
+public class Empresa extends Usuario {
+
+    private List<Catering> serviciosCatering;
+    private List<Restaurante> restaurantes;
+
+    public Empresa(String nombre, String correoElectronico, String contrasena, String CIF) {
+        super(TipoUsuario.EMPRESA, correoElectronico, contrasena, nombre, null, null, null, null, null, CIF);
+        this.serviciosCatering = new ArrayList<>();
+        this.restaurantes = new ArrayList<>();
+    }
+    
+    public void agregarServicioCatering(Catering catering) {
+        serviciosCatering.add(catering);
+    }
+    
+    public void agregarRestaurante(Restaurante restaurante) {
+        restaurantes.add(restaurante);
+    }
+    
+    public void buscarsConCatering() {
+        for (Restaurante restaurante : restaurantes) {
+            Catering catering = restaurante.getServicioCatering();
+            if (catering != null) {          
+                System.out.println("Restaurante con catering: " + restaurante.getNombre());
+            }
+        }       
+    }
+
+    public void seleccionarCatering(int indice) {
+        Catering catering = serviciosCatering.get(indice);
+        catering.setCamareros(catering.getCamareros());
+        catering.setComidas(catering.getComidas());
+        catering.setDecoracion(catering.esDecoracion());
+
+        double precioTotal = catering.calcularPrecioTotal();
+        System.out.println("Precio total del catering: " + precioTotal);
+    }
+}
