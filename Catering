@@ -69,6 +69,14 @@ public class Catering {
         this.espacioPrivado = espacioPrivado;
     }
 
+    public String getDescripcionComida() {
+        return descripcionComida;
+    }
+
+    public void setDescripcionComida(String descripcionComida) {
+        this.descripcionComida = descripcionComida;
+    }
+
 
     public double calcularPrecioTotal(){
         
