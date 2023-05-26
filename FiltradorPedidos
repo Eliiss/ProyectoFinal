@@ -9,11 +9,11 @@ public class FiltradorPedidos {
         
     public List<Restaurante> filtrarCP (List<Restaurante> restaurantes, int CP){
         List<Restaurante> restaurantes_filtrados = new ArrayList<>();
-       
+        String cp= String.valueOf(CP);
         for (Restaurante restaurante : restaurantes){
             int codigoPostal = restaurante.getDireccion().getCodigoPostal();
-            
-            if (String.valueOf(codigoPostal).startsWith(String.valueOf(CP))){
+            String rescodigopostal = String.valueOf(codigoPostal);
+        if (rescodigopostal.length() >= 4 && cp.startsWith(rescodigopostal.substring(0, 4))) {
                 restaurantes_filtrados.add(restaurante);    
             }
         }
