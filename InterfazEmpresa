@@ -1,0 +1,121 @@
+
+package com.mycompany.javaeat;
+
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.util.ArrayList;
+import java.util.List;
+import javax.swing.JButton;
+import javax.swing.JCheckBox;
+import javax.swing.JComboBox;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+
+public class InterfazEmpresa {
+    
+    private List<Comida> comidas;
+    
+    public int obtenerCantidadCamareros() {
+        JFrame frame = new JFrame("Seleccionar numero de camareros");
+        JComboBox<Integer> comboBox = new JComboBox<>();
+        
+        comboBox.addItem(1);
+        comboBox.addItem(2);
+        comboBox.addItem(3);
+        comboBox.addItem(4);
+
+
+        JButton confirmButton = new JButton("Confirmar");
+        
+        JPanel panel = new JPanel();
+        panel.add(new JLabel("Cantidad de camareros:"));
+        panel.add(comboBox);
+        panel.add(confirmButton);
+        
+        confirmButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                frame.dispose(); // Cerrar la ventana cuando se confirme la selección
+            }
+        });
+        
+        frame.add(panel);
+        frame.pack();
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); 
+        frame.setVisible(true);
+
+        int cantidadCamareros = (int) comboBox.getSelectedItem();   
+        return cantidadCamareros;
+    }
+    
+    public List<Comida> seleccionarComidas() {
+        JFrame frame = new JFrame("Seleccionar comidas");
+        JComboBox<String> comboBox = new JComboBox<>();
+        JCheckBox checkBoxTerminar = new JCheckBox("Terminar");
+        
+        for (Comida comida : comidas) {
+            comboBox.addItem(comida.getTitulo());
+        }
+        
+        JButton confirmButton = new JButton("Confirmar");
+        
+        JPanel panel = new JPanel();
+        panel.add(new JLabel("Seleccione las comidas del catering:"));
+        panel.add(comboBox);
+        panel.add(confirmButton);
+        panel.add(checkBoxTerminar);
+        
+        confirmButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                frame.dispose();
+            }
+        });
+        
+        frame.add(panel);
+        frame.pack();
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.setVisible(true);
+        
+        List<Comida> comidasSeleccionadas = new ArrayList<>();
+        int selectedIndex = comboBox.getSelectedIndex();
+        while (selectedIndex >= 0) {
+            Comida comida = comidas.get(selectedIndex);
+            comidasSeleccionadas.add(comida);
+            comboBox.removeItemAt(selectedIndex);
+            selectedIndex = comboBox.getSelectedIndex();
+        }
+        return comidasSeleccionadas;
+    }
+    
+    public boolean seleccionarDecoracion() {
+        
+        JFrame frame = new JFrame("Seleccionar decoración");
+        JCheckBox checkBoxDecoracion = new JCheckBox("Incluir decoración");
+        
+        JButton confirmButton = new JButton("Confirmar");
+        
+        JPanel panel = new JPanel();
+        panel.add(checkBoxDecoracion);
+        panel.add(confirmButton);
+        
+        confirmButton.addActionListener(new ActionListener(){
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                frame.dispose();
+            }
+        });
+        
+        frame.add(panel);
+        frame.pack();
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.setVisible(true);
+        
+        boolean incluirDecoracion = checkBoxDecoracion.isSelected();
+        
+        return incluirDecoracion;
+    }
+    
+}
+
