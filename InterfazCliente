@@ -1,0 +1,60 @@
+
+package com.mycompany.javaeat;
+import javax.swing.JFrame;
+import java.awt.GridLayout;
+import javax.swing.JButton;
+import javax.swing.SwingUtilities;
+
+public class InterfazCliente {
+        
+    JFrame ventanaCliente = new JFrame("Ventana Cliente");
+
+    public InterfazCliente() {
+        ventanaCliente.setSize(400, 300);
+        ventanaCliente.setLocationRelativeTo(null);
+        
+        JButton registroClienteBtn = new JButton("Registro del cliente");
+        registroClienteBtn.addActionListener(e -> registrarCliente());
+
+        JButton busquedaComidasBtn = new JButton("Búsqueda de comidas");
+        busquedaComidasBtn.addActionListener(e -> buscarComidas());
+
+        JButton compraComidasBtn = new JButton("Compra de comidas");
+        compraComidasBtn.addActionListener(e -> comprarComidas());
+
+        JButton opinionRestaurantesBtn = new JButton("Opinar sobre los restaurantes");
+        opinionRestaurantesBtn.addActionListener(e -> opinarRestaurantes());
+
+        JButton modificacionDatosBtn = new JButton("Modificación de sus datos personales");
+        modificacionDatosBtn.addActionListener(e -> modificarDatosPersonales());
+
+        ventanaCliente.setLayout(new GridLayout(5, 1));
+        ventanaCliente.add(registroClienteBtn);
+        ventanaCliente.add(busquedaComidasBtn);
+        ventanaCliente.add(compraComidasBtn);
+        ventanaCliente.add(opinionRestaurantesBtn);
+        ventanaCliente.add(modificacionDatosBtn);
+    }
+
+    private void registrarCliente() {
+    }
+
+    private void buscarComidas() {
+    }
+
+    private void comprarComidas() {
+    }
+
+    private void opinarRestaurantes() {
+    }
+
+    private void modificarDatosPersonales() {
+    }
+
+    public static void main(String[] args) {
+        SwingUtilities.invokeLater(() -> {
+            InterfazCliente interfazCliente = new InterfazCliente();
+            interfazCliente.ventanaCliente.setVisible(true);
+        });
+    }
+}
