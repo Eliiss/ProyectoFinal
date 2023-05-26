@@ -1,0 +1,70 @@
+
+package com.mycompany.javaeat;
+import javax.swing.*;
+import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
+
+public class VentanaPrincipal extends JFrame {
+    public VentanaPrincipal() {
+        setTitle("JAVAEAT");
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setSize(300, 200);
+        setLocationRelativeTo(null);
+
+        JButton buttonAdministrador = new JButton("Administrador");
+        JButton buttonCliente = new JButton("Cliente");
+        JButton buttonEmpresa = new JButton("Empresa");
+        
+        JComboBox<String> comboBoxTipoUsuario = new JComboBox<>();
+        comboBoxTipoUsuario.addItem("Administrador");
+        comboBoxTipoUsuario.addItem("Cliente");
+        comboBoxTipoUsuario.addItem("Empresa");
+
+
+        JButton buttonIniciarSesion = new JButton("Iniciar sesión");
+        buttonIniciarSesion.setEnabled(false);
+        
+        buttonAdministrador.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                InterfazAdministrador interfazAdministrador = new InterfazAdministrador();
+                interfazAdministrador.setVisible(true);
+            }
+        });
+
+        buttonCliente.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                InterfazCliente interfazCliente = new InterfazCliente();
+                interfazCliente.setVisible(true);
+            }
+        });
+
+        buttonEmpresa.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                InterfazEmpresa interfazEmpresa = new InterfazEmpresa();
+                interfazEmpresa.setVisible(true);
+            }
+        }); 
+
+        setLayout(new GridLayout(13, 1));
+        add(new JLabel()); 
+        add(new JLabel());
+        add(buttonAdministrador);
+        add(buttonCliente);
+        add(buttonEmpresa);
+        add(new JLabel()); 
+        add(new JLabel());
+        
+    }    
+  
+    public static void main(String[] args) {
+        SwingUtilities.invokeLater(() -> {
+            VentanaPrincipal ventana = new VentanaPrincipal();
+            ventana.setVisible(true);
+        });
+    }
+}
