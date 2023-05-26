@@ -34,7 +34,7 @@ public class Restaurante {
         this.especialidad = especialidad;
         this.calificacionesList= new ArrayList<>();
     }
-                     
+                 
     public String getNombre() {
         return nombre;
     }
@@ -55,7 +55,7 @@ public class Restaurante {
         return gastosEnvio;
     }
 
-    public void setGastosEnvio(double gastosEnvio) {
+    public void setGastosEnvio(double gastosEnvio) { 
         this.gastosEnvio = gastosEnvio;
     }
 
@@ -89,22 +89,17 @@ public class Restaurante {
     public void setServicioCatering(Catering servicioCatering) {
         this.servicioCatering = servicioCatering;
     }
-
-    // Agrega una comida al listado de comidas disponibles
     
     public void agregarComida(Comida comida) {
         int indice = comidas.size();
         comida.setIndiceComida(indice);
         comidas.add(comida);
     }
-
-    // Actualiza la información de una comida existente
     
     public void actualizarComida(int indiceComida, Comida comida) {
         comidas.set(indiceComida, comida);
     }
 
-    // Elimina una comida del listado de comidas disponibles
     public void eliminarComida(int indiceComida) {
         comidas.remove(indiceComida);
         for (int i = indiceComida; i < comidas.size(); i++) {
@@ -132,19 +127,4 @@ public class Restaurante {
         }
         return (double) suma / calificacionesList.size();
     }   
-}
-
-    // Actualiza la información de una comida existente
-    
-    public void actualizarComida(int indiceComida, Comida comida) {
-        comidas.set(indiceComida, comida);
-    }
-
-    // Elimina una comida del listado de comidas disponibles
-    public void eliminarComida(int indiceComida) {
-        comidas.remove(indiceComida);
-        for (int i = indiceComida; i < comidas.size(); i++) {
-            comidas.get(i).setIndiceComida(i);
-        }
-    }
 }
