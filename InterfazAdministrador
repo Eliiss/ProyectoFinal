@@ -1,0 +1,110 @@
+
+package com.mycompany.javaeat;
+
+import java.awt.GridLayout;
+import java.util.List;
+import javax.swing.JButton;
+import javax.swing.JComboBox;
+import javax.swing.JFrame;
+import javax.swing.JScrollPane;
+import javax.swing.JTextArea;
+
+public class InterfazAdministrador {
+
+    private List<Usuario> listaUsuarios;
+    private JComboBox<String> comboBoxRestaurantes ;
+    private List<Restaurante> listaRestaurantes;
+    private List<Pedido> listaPedidos;
+
+    public InterfazAdministrador(List<Usuario> listaUsuarios, List<Restaurante> listaRestaurantes, List<Pedido> listaPedidos) {
+        
+        this.listaUsuarios = listaUsuarios;
+        this.listaRestaurantes = listaRestaurantes;
+        this.listaPedidos = listaPedidos;
+    }
+
+    public void mostrarInterfazAdministrador() {
+        
+        JFrame ventanaAdministrador = new JFrame("Ventana Administrador");
+        ventanaAdministrador.setSize(400, 300);
+        ventanaAdministrador.setLocationRelativeTo(null);
+
+        JButton consultaUsuariosBtn = new JButton("Consulta de usuarios");
+        consultaUsuariosBtn.addActionListener(e -> mostrarUsuarios());
+
+        JButton consultaRestaurantesBtn = new JButton("Consulta de restaurantes");
+        consultaRestaurantesBtn.addActionListener(e -> mostrarRestaurantes());
+
+        JButton consultaVentasBtn = new JButton("Consulta de ventas realizadas");
+        consultaVentasBtn.addActionListener(e -> mostrarVentas());
+
+        ventanaAdministrador.setLayout(new GridLayout(3, 1));
+        ventanaAdministrador.add(consultaUsuariosBtn);
+        ventanaAdministrador.add(consultaRestaurantesBtn);
+        ventanaAdministrador.add(consultaVentasBtn);
+
+        ventanaAdministrador.setVisible(true);
+    }
+
+    public void mostrarUsuarios() {
+        
+        JFrame ventanaUsuarios = new JFrame("Consulta de usuarios");
+        ventanaUsuarios.setSize(400, 300);
+        ventanaUsuarios.setLocationRelativeTo(null);
+
+        JTextArea textAreaUsuarios = new JTextArea();
+        textAreaUsuarios.setEditable(false);
+
+        for (Usuario usuario : listaUsuarios) {
+            textAreaUsuarios.append(usuario.toString() + "\\\\n");
+        }
+
+        JScrollPane scrollPane = new JScrollPane(textAreaUsuarios);
+
+        ventanaUsuarios.add(scrollPane);
+        ventanaUsuarios.setVisible(true);
+    }
+    
+
+    public void mostrarRestaurantes() {
+        
+        comboBoxRestaurantes = new JComboBox<>();
+        JFrame ventanaMostrarRestaurantes = new JFrame("Mostrar Restaurantes ");
+        ventanaMostrarRestaurantes.setSize(400, 300);
+        ventanaMostrarRestaurantes.setLocationRelativeTo(null);
+        
+        JTextArea textAreaRestaurantes = new JTextArea();
+        textAreaRestaurantes.setEditable(false);
+        
+        for (Restaurante restaurante : listaRestaurantes ){
+            textAreaRestaurantes.append(restaurante.toString() + "\n");      
+        }
+        
+        JScrollPane scrollPane = new JScrollPane(textAreaRestaurantes);
+        
+        ventanaMostrarRestaurantes.add(scrollPane);
+        ventanaMostrarRestaurantes.setVisible(true);
+    }
+    
+    public void mostrarVentas(){
+        JFrame ventanaMostrarVentas = new JFrame ("Mostrar Venta)");
+        ventanaMostrarVentas.setSize(400,300);
+        ventanaMostrarVentas.setLocationRelativeTo((null));
+        
+        JTextArea textAreaVentas = new JTextArea();
+        textAreaVentas.setEditable(false);
+        
+        for (Pedido pedidos : listaPedidos){
+            textAreaVentas.append(pedidos.toString() + "\n");
+        }
+        
+        JScrollPane scrollPane = new JScrollPane(textAreaVentas);
+        
+        ventanaMostrarVentas.add(scrollPane);
+        ventanaMostrarVentas.setVisible(true);
+        
+    }
+
+}
+        
+    
