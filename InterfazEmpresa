@@ -1,4 +1,3 @@
-
 package com.mycompany.javaeat;
 
 import java.awt.event.ActionEvent;
@@ -12,9 +11,42 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
+
 public class InterfazEmpresa {
     
     private List<Comida> comidas;
+    private List<Catering> serviciosCatering;
+    private List<Restaurante> restaurantes;
+
+        
+    
+    public void agregarServicioCatering(Catering catering) {
+        serviciosCatering.add(catering);
+    }
+    
+    public void agregarRestaurante(Restaurante restaurante) {
+        restaurantes.add(restaurante);
+    }
+    
+    public void buscarsConCatering() {
+        for (Restaurante restaurante : restaurantes) {
+            Catering catering = restaurante.getServicioCatering();
+            if (catering != null) {          
+                System.out.println("Restaurante con catering: " + restaurante.getNombre());
+            }
+        }       
+    }
+
+    public void seleccionarCatering(int indice) {
+        Catering catering = serviciosCatering.get(indice);
+        catering.setCamareros(catering.getCamareros());
+        catering.setComidas(catering.getComidas());
+        catering.setDecoracion(catering.esDecoracion());
+
+        double precioTotal = catering.calcularPrecioTotal();
+        System.out.println("Precio total del catering: " + precioTotal);
+    }
+
     
     public int obtenerCantidadCamareros() {
         JFrame frame = new JFrame("Seleccionar numero de camareros");
@@ -116,6 +148,8 @@ public class InterfazEmpresa {
         
         return incluirDecoracion;
     }
-    
+     
 }
+
+
 
