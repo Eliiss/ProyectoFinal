@@ -1,25 +1,28 @@
 
 package com.mycompany.javaeat;
  
+import java.io.Serializable;
 import java.time.LocalDate;
 
 
-public class TarjetaCredito {
+public class TarjetaCredito implements Serializable {
     
     private String titular;
-    private String numero;
+    private long numero;
     private LocalDate fechaCaducidad; 
     
     
-    public TarjetaCredito(String titular, String numero, LocalDate fechaCaducidad){
+    public TarjetaCredito(String titular, long numero, LocalDate fechaCaducidad){
         
-            if (titular == null || titular.isEmpty()) {
+        if (titular == null || titular.isEmpty()) {
             throw new IllegalArgumentException("Debe introducir el nombre del titular");
         }
         
-        if (numero.length()!= 16) {
+        if(String.valueOf(numero).length()!= 16) {
+            
             throw new IllegalArgumentException("Número de tarjeta inválido");
         }
+        
         if (fechaCaducidad.isBefore(LocalDate.now())) {
             
             throw new IllegalArgumentException("Fecha de caducidad inválida.");
@@ -39,11 +42,11 @@ public class TarjetaCredito {
         this.titular = titular;
     }
 
-    public String getNumero() {
+    public long getNumero() {
         return numero;
     }
 
-    public void setNumero(String numero) {
+    public void setNumero(long numero) {
         this.numero = numero;
     }
 
