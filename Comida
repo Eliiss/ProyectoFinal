@@ -1,9 +1,11 @@
 package com.mycompany.javaeat;
 
 import java.awt.Image;
+import java.io.Serializable;
 import java.util.List;
 
-public class Comida {
+public class Comida implements Serializable{
+    
     private static final int MAX_NUM_PALABRAS_TITULO = 5;
 
     private int indiceComida;
