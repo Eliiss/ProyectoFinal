@@ -1,10 +1,11 @@
 
 package com.mycompany.javaeat;
+import java.io.Serializable;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 // si te sobra tiempo verifica si el dni y el cif son reales o no 
-public class Usuario {
+public class Usuario  implements Serializable {
     
     private static final String EXPRESION_CORREO = "^[_A-Za-z0-9-\\+]+(\\.[_A-Za-z0-9-]+)*@[A-Za-z0-9-]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})*$";
     //el + indica que debe haber al menos una y * es cero o varios  
@@ -22,12 +23,7 @@ public class Usuario {
      (?=.*[@$!%*#?&]) evalua si hay caracteres especiales
      [A-Za-z\\d@$!%*#?&]{8,} longitud minima de 8 caracteres
     */
-    private static final String EXPRESION_WEB = "^https://[A-Za-z0-9-]+(\\.[A-Za-z0-9-]+)*(:[0-9]+)?(\\/[A-Za-z0-9-]+)*(\\/[A-Za-z0-9-]+\\.[A-Za-z]+)?$";
-    /*
-    Comienza con "https://", 
-    serie de caracteres alfanuméricos y guiones, que pueden estar seguidos por una o más repeticiones 
-    Número de puerto opcional , serie de directorios opcionales, seguidos de un nombre de archivo opcional con una extensión de archivo.  
-    */
+
     private static final String EXPRESION_CIF= "^[A-HJNP-SUVW]{1}[0-9]{7}[0-9A-J]{1}$";
     
     private TipoUsuario tipoUsuario;
@@ -44,7 +40,7 @@ public class Usuario {
 
 // PREVENIMOS ALGUNOS ERRORES DEL USUARIO MEDIANTE UN CONSTRUCTOR
     
-    public Usuario( TipoUsuario tipoUsuario , String correo, String nombre, String DNI, Direccion direccion, String clave, TarjetaCredito tarjetaCredito, String numeroTelefono, String website, String CIF) {
+    public Usuario( TipoUsuario tipoUsuario , String correo, String nombre, String DNI, Direccion direccion, String clave, TarjetaCredito tarjetaCredito, String numeroTelefono) {
         if (tipoUsuario == null || correo == null|| clave == null) {
             throw new IllegalArgumentException("Faltan campos por especificar");
                 }
@@ -93,9 +89,6 @@ public class Usuario {
                 if (!esClaveCliente(clave)) {
                     throw new IllegalArgumentException("La clave proporcionada es inválida");
                 }
-                if (!esWebSite(website)) {
-                    throw new IllegalArgumentException("No se encuentra la página web");
-                }
                 if (!esCIFValido(CIF)) {
                     throw new IllegalArgumentException("El CIF proporcionado es invalido");
                 }
@@ -112,8 +105,6 @@ public class Usuario {
     this.tarjetaCredito = tarjetaCredito;
     this.numeroTelefono = numeroTelefono;
     this.clave = clave;
-    this.website = website;
-    this.CIF = CIF; 
     
     }
     public TipoUsuario getTipoUsuario() {
@@ -240,20 +231,9 @@ public class Usuario {
         return website;
     }
 
-    private boolean esWebSite(String website){
-        Pattern patron = Pattern.compile(EXPRESION_WEB);
-        Matcher matcher = patron.matcher(website);
-        return matcher.find();
-    }
-    
-    public void setWebsite(String website) {
-        if (esWebSite(website)){
-            this.website = website;
-        }
-    }
     
 
-    public void registrarse(TipoUsuario tipoUsuario, String correo, String clave, String nombre, Direccion direccion, TarjetaCredito tarjetaCredito, String numeroTelefono, String CIF) {
+    public void registrarse(TipoUsuario tipoUsuario, String correo, String clave, String nombre, Direccion direccion, TarjetaCredito tarjetaCredito, String numeroTelefono) {
         
         
         switch(tipoUsuario){
@@ -274,7 +254,6 @@ public class Usuario {
                 this.direccion = direccion;
                 this.tarjetaCredito = tarjetaCredito;
                 this.numeroTelefono = numeroTelefono;
-                this.CIF = CIF;
                 
             case ADMINISTRADOR:
                 this.clave=clave;
@@ -306,3 +285,4 @@ public class Usuario {
     }
     
 }
+
