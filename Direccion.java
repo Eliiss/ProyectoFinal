@@ -1,8 +1,10 @@
 
 package com.mycompany.javaeat;
 
+import java.io.Serializable;
 
-public class Direccion {
+
+public class Direccion implements Serializable {
      
     private String calle;
     private int numero;
@@ -58,3 +60,6 @@ public class Direccion {
     public void setCiudad(String ciudad) {
         this.ciudad = ciudad;
     }
+
+
+}
