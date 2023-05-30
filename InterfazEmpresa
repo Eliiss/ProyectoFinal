@@ -1,7 +1,5 @@
 package com.mycompany.javaeat;
 
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.JButton;
@@ -96,9 +94,8 @@ public class InterfazEmpresa {
 
         confirmButton.addActionListener(e -> {
             int cantidadCamareros = (int) comboBox.getSelectedItem();
-            // Realizar acciones con la cantidad de camareros seleccionada
             System.out.println("Cantidad de camareros seleccionada: " + cantidadCamareros);
-            frame.dispose(); // Cerrar la ventana cuando se confirme la selección
+            frame.dispose(); 
         });
 
         frame.add(panel);
@@ -134,7 +131,6 @@ public class InterfazEmpresa {
                     comboBox.removeItemAt(selectedIndex);
                     selectedIndex = comboBox.getSelectedIndex();
                 }
-                // Realizar acciones con las comidas seleccionadas
                 System.out.println("Comidas seleccionadas: " + comidasSeleccionadas);
             } else {
                 System.out.println("No se ha seleccionado ninguna comida");
@@ -160,7 +156,6 @@ public class InterfazEmpresa {
 
         confirmButton.addActionListener(e -> {
             boolean incluirDecoracion = checkBoxDecoracion.isSelected();
-            // Realizar acciones con la opción de decoración seleccionada
             System.out.println("Incluir decoración: " + incluirDecoracion);
             frame.dispose();
         });
@@ -171,6 +166,4 @@ public class InterfazEmpresa {
         frame.setVisible(true);
     }
 }
-
-
 
