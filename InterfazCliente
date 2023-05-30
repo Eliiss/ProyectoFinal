@@ -250,6 +250,7 @@ public class InterfazCliente {
 
 
     public void realizarCompra(JComboBox<Comida> comboBoxComidas, JTextField textFieldCantidad, JTextField textFieldDia, JTextField textFieldMes, JTextField textFieldAnio) {
+        
         JFrame realizarCompraFrame = new JFrame("Mostrar Comidas");
 
         String comidaElegida = comboBoxComidas.getSelectedItem().toString();
@@ -259,7 +260,13 @@ public class InterfazCliente {
         int cantidad = 0;
         try {
             if (textFieldCantidad.getText() != null && !textFieldCantidad.getText().isEmpty()) {
-            cantidad = Integer.parseInt(textFieldCantidad.getText());
+                String cantidadText = textFieldCantidad.getText();
+                    if (!cantidadText.isEmpty()) {
+                        cantidad = Integer.parseInt(cantidadText);
+                    } else {
+                        JOptionPane.showMessageDialog(null, "Ingrese una cantidad válida", "Error", JOptionPane.ERROR_MESSAGE);
+                        return;
+                    }
             } else {
                 JOptionPane.showMessageDialog(null, "Ingrese una cantidad válida", "Error", JOptionPane.ERROR_MESSAGE);
                 return;
@@ -310,10 +317,6 @@ public class InterfazCliente {
         nuevoPedido.agregarItem(itemPedido);
         listaPedidos.add(nuevoPedido);
 
-        JPanel comprarPanel = new JPanel();
-        comprarPanel.setLayout(new GridLayout(7, 2));
-
-        realizarCompraFrame.add(comprarPanel);
         realizarCompraFrame.setVisible(true);
 
         JOptionPane.showMessageDialog(null, "Compra realizada con éxito", "Éxito", JOptionPane.INFORMATION_MESSAGE);
@@ -321,14 +324,16 @@ public class InterfazCliente {
 
 
     private void opinarRestaurantes (JComboBox<Restaurante> comboBoxRestaurantes, JSpinner calificacion) {
-        
+        JFrame opinarFrame = new JFrame("Mostrar Comidas");
+
         Restaurante restauranteElegido = (Restaurante) comboBoxRestaurantes.getSelectedItem();
         
         double nuevaCalificacion = (double) calificacion.getValue();
         restauranteElegido.introducirCalificacion(nuevaCalificacion);
         double relevancia = restauranteElegido.relevancia();
         JOptionPane.showMessageDialog(null, "Calificación del restaurante: " + relevancia);
-        
+        opinarFrame.setVisible(true);
+
     }
 
     private void modificarDatosPersonales() {        
@@ -355,27 +360,27 @@ public class InterfazCliente {
         
         return panel;
 }
-private JPanel createTarjetaCreditoPanel() {
+    private JPanel createTarjetaCreditoPanel() {
     
-    JPanel panel = new JPanel(new GridLayout(3, 2));
-    textFieldTitular = new JTextField(); 
-    textFieldNumeroTarjeta = new JTextField(); 
-    textFieldDia = new JTextField(); 
-    textFieldMes = new JTextField();
-    textFieldAnio = new JTextField(); 
+        JPanel panel = new JPanel(new GridLayout(3, 2));
+        textFieldTitular = new JTextField(); 
+        textFieldNumeroTarjeta = new JTextField(); 
+        textFieldDia = new JTextField(); 
+        textFieldMes = new JTextField();
+        textFieldAnio = new JTextField(); 
     
-    panel.add(new JLabel("Titular:"));
-    panel.add(textFieldTitular);
-    panel.add(new JLabel("Número de Tarjeta:"));
-    panel.add(textFieldNumeroTarjeta);
-    panel.add(new JLabel("Fecha de Caducidad (DD/MM/AAAA):"));
-    JPanel fechaPanel = new JPanel(new GridLayout(1, 3));
-    fechaPanel.add(textFieldDia);
-    fechaPanel.add(textFieldMes);
-    fechaPanel.add(textFieldAnio);
-    panel.add(fechaPanel);
-    return panel;
-}
+        panel.add(new JLabel("Titular:"));
+        panel.add(textFieldTitular);
+        panel.add(new JLabel("Número de Tarjeta:"));
+        panel.add(textFieldNumeroTarjeta);
+        panel.add(new JLabel("Fecha de Caducidad (DD/MM/AAAA):"));
+        JPanel fechaPanel = new JPanel(new GridLayout(1, 3));
+        fechaPanel.add(textFieldDia);
+        fechaPanel.add(textFieldMes);
+        fechaPanel.add(textFieldAnio);
+        panel.add(fechaPanel);
+        return panel;
+    }
 
     private Direccion obtenerDireccionIngresada() {
         String calle = textFieldCalle.getText();
@@ -418,4 +423,9 @@ private JPanel createTarjetaCreditoPanel() {
 
         return LocalDate.of(ano, mes, dia);
     }
+    
+
+
+
 }
+
