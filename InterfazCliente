@@ -2,17 +2,79 @@
 package com.mycompany.javaeat;
 import javax.swing.JFrame;
 import java.awt.GridLayout;
+
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.util.List;
 import javax.swing.JButton;
-import javax.swing.SwingUtilities;
+import javax.swing.JComboBox;
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+import javax.swing.JSpinner;
+import javax.swing.JTextArea;
+import javax.swing.JTextField;
 
 public class InterfazCliente {
-        
-    JFrame ventanaCliente = new JFrame("Ventana Cliente");
+    
+    private List<Comida> listaComidas;    
+    private JComboBox<Restaurante> comboBoxRestaurantes ;
+    private List<Restaurante> listaRestaurantes;
+    private List<Pedido> listaPedidos;
+    private Usuario usuario;
+    
+    private JComboBox<TipoUsuario> comboBoxTipoUsuario;
+    private JTextField textFieldCorreo;
+    private JTextField textFieldcontrasena;
+    private JTextField textFieldNombre;
+    private JTextField textFieldNumeroTelefono;
+    private JTextField DNI;
+    private JTextField textFieldCalle;
+    private JTextField textFieldNumero;
+    private JTextField textFieldCiudad;
+    private JTextField textFieldCodigoPostal;
+    private JTextField textFieldTitular;
+    private JTextField textFieldNumeroTarjeta;
+    private JTextField textFieldDia;
+    private JTextField textFieldMes;
+    private JTextField textFieldAnio;
+    
+    private JSpinner calificacion;
 
-    public InterfazCliente() {
+    
+    public InterfazCliente(List<Comida> listaComidas, List<Restaurante> listaRestaurantes, List<Pedido> listaPedidos, Usuario usuario) {
+        
+        this.listaComidas = listaComidas;
+        this.listaRestaurantes = listaRestaurantes;
+        this.listaPedidos = listaPedidos;
+        this.usuario = usuario;
+        this.comboBoxTipoUsuario = new JComboBox<>(TipoUsuario.values());
+        this.textFieldCorreo = new JTextField();  
+        this.textFieldcontrasena = new JTextField();
+        this.textFieldNombre = new JTextField();
+        this.DNI = new JTextField();
+        this.textFieldNumeroTelefono = new JTextField();
+        this.textFieldCalle = new JTextField();
+        this.textFieldNumero = new JTextField();
+        this.textFieldCiudad = new JTextField();
+        this.textFieldCodigoPostal = new JTextField();
+        this.textFieldTitular = new JTextField();
+        this.textFieldNumeroTarjeta = new JTextField();
+        this.textFieldDia = new JTextField();
+        this.textFieldMes = new JTextField();
+        this.textFieldAnio = new JTextField();
+        
+
+    }
+
+    public void mostrarInterfazCliente() {
+
+        JFrame ventanaCliente = new JFrame("Ventana Cliente");
         ventanaCliente.setSize(400, 300);
         ventanaCliente.setLocationRelativeTo(null);
-        
+        ventanaCliente.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+
         JButton registroClienteBtn = new JButton("Registro del cliente");
         registroClienteBtn.addActionListener(e -> registrarCliente());
 
@@ -23,38 +85,337 @@ public class InterfazCliente {
         compraComidasBtn.addActionListener(e -> comprarComidas());
 
         JButton opinionRestaurantesBtn = new JButton("Opinar sobre los restaurantes");
-        opinionRestaurantesBtn.addActionListener(e -> opinarRestaurantes());
+        opinionRestaurantesBtn.addActionListener(e -> opinarRestaurantes(comboBoxRestaurantes, calificacion));
 
         JButton modificacionDatosBtn = new JButton("Modificación de sus datos personales");
         modificacionDatosBtn.addActionListener(e -> modificarDatosPersonales());
 
+        calificacion = new JSpinner();
+        comboBoxRestaurantes = new JComboBox<>();
+        for (Restaurante restaurante : listaRestaurantes) {
+            comboBoxRestaurantes.addItem(restaurante);
+        }
         ventanaCliente.setLayout(new GridLayout(5, 1));
         ventanaCliente.add(registroClienteBtn);
         ventanaCliente.add(busquedaComidasBtn);
         ventanaCliente.add(compraComidasBtn);
         ventanaCliente.add(opinionRestaurantesBtn);
         ventanaCliente.add(modificacionDatosBtn);
-    }
+                    
+        ventanaCliente.setVisible(true);
 
+    }
+    
+    public Usuario getUsuario() {
+        return usuario;
+    }
+    
     private void registrarCliente() {
+        
+        JFrame registroFrame = new JFrame("Registro de Cliente");
+        registroFrame.setSize(400, 500);
+        registroFrame.setLocationRelativeTo(null);
+
+        JPanel registroPanel = new JPanel();
+        registroPanel.setLayout(new GridLayout(14, 2));
+
+        JLabel lblTipoUsuario = new JLabel("Tipo de Usuario:");
+        JLabel lblNombre = new JLabel("Nombre:");
+        JLabel lblCorreo = new JLabel("Correo:");
+        JLabel lblDNI = new JLabel("DNI:");
+        JLabel lblTelefono = new JLabel("Teléfono:");
+        JLabel lblDireccion = new JLabel("Dirección:");
+        JLabel lblTarjeta = new JLabel("Tarjeta de Crédito:");
+        JLabel lblClave = new JLabel ("Contraseña: ");
+
+        comboBoxTipoUsuario = new JComboBox<>(TipoUsuario.values());
+        textFieldNombre = new JTextField();
+        textFieldCorreo = new JTextField();
+        textFieldcontrasena = new JTextField();
+        DNI = new JTextField();
+        textFieldNumeroTelefono = new JTextField();
+        textFieldCalle = new JTextField();
+        textFieldNumero = new JTextField();
+        textFieldCiudad = new JTextField();
+        textFieldCodigoPostal = new JTextField();
+        textFieldTitular = new JTextField();
+        textFieldNumeroTarjeta = new JTextField();
+        textFieldDia = new JTextField();
+        textFieldMes = new JTextField();
+        textFieldAnio = new JTextField();
+
+        JButton buttonRegistrarse = new JButton("Registrarse");
+
+        buttonRegistrarse.addActionListener(e -> realizarRegistro());
+
+       
+
+        registroPanel.add(lblTipoUsuario);
+        registroPanel.add(comboBoxTipoUsuario);
+        registroPanel.add(lblNombre);
+        registroPanel.add(textFieldNombre);
+        registroPanel.add(lblCorreo);
+        registroPanel.add(textFieldCorreo);
+        registroPanel.add(lblDNI);
+        registroPanel.add(DNI);
+        registroPanel.add(lblTelefono);
+        registroPanel.add(textFieldNumeroTelefono);
+        registroPanel.add(lblClave);
+        registroPanel.add(textFieldcontrasena);
+        registroPanel.add(lblDireccion);
+        registroPanel.add(createDireccionPanel());
+        registroPanel.add(lblTarjeta);
+        registroPanel.add(createTarjetaCreditoPanel());
+    
+
+        registroPanel.add(buttonRegistrarse);
+
+        registroFrame.add(registroPanel);
+        registroFrame.setVisible(true);
+    }
+    
+    public void realizarRegistro(){
+        
+        TipoUsuario tipoUsuario = (TipoUsuario) comboBoxTipoUsuario.getSelectedItem();
+        String correo = textFieldCorreo.getText();
+        String nombre = textFieldNombre.getText();
+        String dni = DNI.getText();
+        String telefono = textFieldNumeroTelefono.getText();
+        String clave = textFieldcontrasena.getText();
+        
+        Direccion direccion = obtenerDireccionIngresada();
+        TarjetaCredito tarjetaCredito = obtenerTarjetaCreditoIngresada();
+
+        Usuario nuevoUsuario = new Usuario(tipoUsuario, correo, nombre, dni, direccion, clave, tarjetaCredito, telefono);
+        this.usuario = nuevoUsuario;
+
+        JOptionPane.showMessageDialog(null, "Usuario registrado ");
+
     }
 
     private void buscarComidas() {
+        
+        JFrame ventanaMostrarComidas = new JFrame ("Mostrar Comidas)");
+        ventanaMostrarComidas.setSize(400,300);
+        ventanaMostrarComidas.setLocationRelativeTo((null));
+        
+        JTextArea textAreaComidas = new JTextArea();
+        textAreaComidas.setEditable(false);
+        
+        for (Comida comidas : listaComidas){
+            textAreaComidas.append(comidas.toString() + "\n");
+        }
+        
+        JScrollPane scrollPane = new JScrollPane(textAreaComidas);
+        
+        ventanaMostrarComidas.add(scrollPane);
+        ventanaMostrarComidas.setVisible(true);
+        
     }
 
-    private void comprarComidas() {
+     private void comprarComidas() {
+        
+        
+        JFrame compraFrame = new JFrame("Comprar");
+        compraFrame.setSize(400, 400);
+        compraFrame.setLocationRelativeTo(null);
+
+        JPanel compraPanel = new JPanel();
+        compraPanel.setLayout(new GridLayout(7, 2));
+
+        JLabel lblComida = new JLabel("Comida:");
+        JComboBox<Comida> comboBoxComidas = new JComboBox<>(listaComidas.toArray(new Comida[0]));
+
+        JLabel lblCantidad = new JLabel("Cantidad:");
+        JTextField textFieldCantidad = new JTextField();
+
+        JLabel lblFechaEntrega = new JLabel("Fecha de entrega (DD/MM/AAAA):");
+        JTextField textFieldFechaEntrega = new JTextField();
+
+        JButton btnComprar = new JButton("Comprar");
+        btnComprar.addActionListener(e -> realizarCompra(comboBoxComidas, textFieldCantidad , textFieldDia, textFieldMes, textFieldAnio));
+
+        compraPanel.add(lblComida);
+        compraPanel.add(comboBoxComidas);
+        compraPanel.add(lblCantidad);
+        compraPanel.add(textFieldCantidad);
+        compraPanel.add(lblFechaEntrega);
+        compraPanel.add(textFieldFechaEntrega);
+        compraPanel.add(btnComprar);
+
+        compraFrame.add(compraPanel);
+        compraFrame.setVisible(true);
+    }
+    
+
+
+    public void realizarCompra(JComboBox<Comida> comboBoxComidas, JTextField textFieldCantidad, JTextField textFieldDia, JTextField textFieldMes, JTextField textFieldAnio) {
+        JFrame realizarCompraFrame = new JFrame("Mostrar Comidas");
+
+        String comidaElegida = comboBoxComidas.getSelectedItem().toString();
+        Comida comidaSeleccionada = listaComidas.stream().filter(comida -> comida.getTitulo().equals(comidaElegida)).findFirst().orElse(null);
+        Restaurante restauranteElegido = listaRestaurantes.get(comboBoxRestaurantes.getSelectedIndex());
+
+        int cantidad = 0;
+        try {
+            if (textFieldCantidad.getText() != null && !textFieldCantidad.getText().isEmpty()) {
+            cantidad = Integer.parseInt(textFieldCantidad.getText());
+            } else {
+                JOptionPane.showMessageDialog(null, "Ingrese una cantidad válida", "Error", JOptionPane.ERROR_MESSAGE);
+                return;
+            }
+        } catch (NumberFormatException e) {
+            JOptionPane.showMessageDialog(null, "Ingrese una cantidad válida", "Error", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+
+        int dia = 0;
+        int mes = 0;
+        int anio = 0;
+        try {
+            if (textFieldDia.getText() != null && !textFieldDia.getText().isEmpty()) {
+                dia = Integer.parseInt(textFieldDia.getText());
+            } else {
+                JOptionPane.showMessageDialog(null, "Ingrese un día válido", "Error", JOptionPane.ERROR_MESSAGE);
+                return;
+            }
+            if (textFieldMes.getText() != null && !textFieldMes.getText().isEmpty()) {
+                mes = Integer.parseInt(textFieldMes.getText());
+            } else {
+                JOptionPane.showMessageDialog(null, "Ingrese un mes válido", "Error", JOptionPane.ERROR_MESSAGE);
+                return;
+            }
+            if (textFieldAnio.getText() != null && !textFieldAnio.getText().isEmpty()) {
+                anio = Integer.parseInt(textFieldAnio.getText());
+            } else {
+                JOptionPane.showMessageDialog(null, "Ingrese un año válido", "Error", JOptionPane.ERROR_MESSAGE);
+                return;
+            }
+        } catch (NumberFormatException e) {
+                JOptionPane.showMessageDialog(null, "Ingrese una fecha válida", "Error", JOptionPane.ERROR_MESSAGE);
+             return;
+            }
+
+        LocalDateTime fechaEntrega = null;
+        try {
+            fechaEntrega = LocalDateTime.of(anio, mes, dia, 0, 0);
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "Ingrese una fecha válida", "Error", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+
+        ItemPedido itemPedido = new ItemPedido(comidaSeleccionada, cantidad);
+        Pedido nuevoPedido = new Pedido(fechaEntrega, restauranteElegido, usuario);
+
+        nuevoPedido.agregarItem(itemPedido);
+        listaPedidos.add(nuevoPedido);
+
+        JPanel comprarPanel = new JPanel();
+        comprarPanel.setLayout(new GridLayout(7, 2));
+
+        realizarCompraFrame.add(comprarPanel);
+        realizarCompraFrame.setVisible(true);
+
+        JOptionPane.showMessageDialog(null, "Compra realizada con éxito", "Éxito", JOptionPane.INFORMATION_MESSAGE);
     }
 
-    private void opinarRestaurantes() {
+
+    private void opinarRestaurantes (JComboBox<Restaurante> comboBoxRestaurantes, JSpinner calificacion) {
+        
+        Restaurante restauranteElegido = (Restaurante) comboBoxRestaurantes.getSelectedItem();
+        
+        double nuevaCalificacion = (double) calificacion.getValue();
+        restauranteElegido.introducirCalificacion(nuevaCalificacion);
+        double relevancia = restauranteElegido.relevancia();
+        JOptionPane.showMessageDialog(null, "Calificación del restaurante: " + relevancia);
+        
     }
 
-    private void modificarDatosPersonales() {
+    private void modificarDatosPersonales() {        
+        
+    }
+    
+    private JPanel createDireccionPanel() {
+        
+        JPanel panel = new JPanel(new GridLayout(4, 2));
+        textFieldCalle = new JTextField(); 
+        textFieldNumero = new JTextField(); 
+        textFieldCiudad = new JTextField(); 
+        textFieldCodigoPostal = new JTextField(); 
+        
+    
+        panel.add(new JLabel("Calle:"));
+        panel.add(textFieldCalle);
+        panel.add(new JLabel("Número:"));
+        panel.add(textFieldNumero);
+        panel.add(new JLabel("Ciudad:"));
+        panel.add(textFieldCiudad);
+        panel.add(new JLabel("Código Postal:"));
+        panel.add(textFieldCodigoPostal);
+        
+        return panel;
+}
+private JPanel createTarjetaCreditoPanel() {
+    
+    JPanel panel = new JPanel(new GridLayout(3, 2));
+    textFieldTitular = new JTextField(); 
+    textFieldNumeroTarjeta = new JTextField(); 
+    textFieldDia = new JTextField(); 
+    textFieldMes = new JTextField();
+    textFieldAnio = new JTextField(); 
+    
+    panel.add(new JLabel("Titular:"));
+    panel.add(textFieldTitular);
+    panel.add(new JLabel("Número de Tarjeta:"));
+    panel.add(textFieldNumeroTarjeta);
+    panel.add(new JLabel("Fecha de Caducidad (DD/MM/AAAA):"));
+    JPanel fechaPanel = new JPanel(new GridLayout(1, 3));
+    fechaPanel.add(textFieldDia);
+    fechaPanel.add(textFieldMes);
+    fechaPanel.add(textFieldAnio);
+    panel.add(fechaPanel);
+    return panel;
+}
+
+    private Direccion obtenerDireccionIngresada() {
+        String calle = textFieldCalle.getText();
+        int numero = Integer.parseInt(textFieldNumero.getText());
+        String ciudad = textFieldCiudad.getText();
+        int codigoPostal = Integer.parseInt(textFieldCodigoPostal.getText());
+
+        try {
+            return new Direccion(calle, numero, ciudad, codigoPostal);
+        } catch (IllegalArgumentException e) {
+            JOptionPane.showMessageDialog(null, e.getMessage(), "Error en dirección", JOptionPane.ERROR_MESSAGE);
+            return null;
+        }
     }
 
-    public static void main(String[] args) {
-        SwingUtilities.invokeLater(() -> {
-            InterfazCliente interfazCliente = new InterfazCliente();
-            interfazCliente.ventanaCliente.setVisible(true);
-        });
+    private TarjetaCredito obtenerTarjetaCreditoIngresada() {
+        
+        String titular = textFieldTitular.getText();
+        long numero = Long.parseLong(textFieldNumeroTarjeta.getText());
+        LocalDate fechaCaducidad = obtenerFechaCaducidadIngresada();
+
+        try {
+        TarjetaCredito tarjetaCredito = new TarjetaCredito(titular, numero, fechaCaducidad);
+        tarjetaCredito.setTitular(titular);
+        tarjetaCredito.setNumero(numero);
+        tarjetaCredito.setFechaCaducidad(fechaCaducidad);
+        return tarjetaCredito;
+        
+        } catch (IllegalArgumentException e) {
+            JOptionPane.showMessageDialog(null, e.getMessage(), "Error en tarjeta de crédito", JOptionPane.ERROR_MESSAGE);
+            return null;
+        }
+    }
+
+    private LocalDate obtenerFechaCaducidadIngresada() {
+        
+        int dia = Integer.parseInt(textFieldDia.getText());
+        int mes = Integer.parseInt(textFieldMes.getText());
+        int ano = Integer.parseInt(textFieldAnio.getText());
+
+        return LocalDate.of(ano, mes, dia);
     }
 }
